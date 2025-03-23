@@ -1,12 +1,31 @@
-# React + Vite
+# Stock Tracker
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The Stock Tracker project allows users to track the price of stocks by entering their ticker symbols. It provides a visual representation of stock price changes over time and offers cost estimations for future prices.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Track stock prices by entering the stock ticker.
+- View visual graphs showing stock price trends.
+- Estimate future stock prices based on historical data.
+- Automatically track the gap between the last tracking date and the current date.
+- Store tracked stock data locally for future reference.
+- By default, stocks are checked against the TSX, unless a different exchange is specified.
 
-## Expanding the ESLint configuration
+## Setup
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+To set up the project, follow these steps:
+
+1. Clone the repository.
+2. Run `npm install`.
+3. Run `npm run dev`.
+
+## File Structure
+
+![File Structure](image.png)
+
+
+## Data Flow
+
+![Data Flow](image-1.png)
+
+Arrows indicate access permissions. For example, features can access shared utilities, but features cannot access components in the app folder.
