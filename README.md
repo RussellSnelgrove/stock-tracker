@@ -21,11 +21,11 @@ To set up the project, follow these steps:
 
 ## File Structure
 
-![File Structure](image.png)
+![File Structure](./src/lib/images/folder-structure.png)
 
 
 ## Data Flow
 
-![Data Flow](image-1.png)
+![Data Flow](./src/lib/images/data-flow.png)
 
 Arrows indicate access permissions. For example, features can access shared utilities, but features cannot access components in the app folder.
