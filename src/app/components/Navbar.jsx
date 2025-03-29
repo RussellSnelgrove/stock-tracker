@@ -1,20 +1,23 @@
-function CustomLink({ href, children, ...props }) {
-    const path = window.location.pathname;
+import { Link, useMatch, useResolvedPath } from "react-router-dom";
+
+function CustomLink({ to, children, ...props }) {
+    const resolvedPath = useResolvedPath(to);
+    const isActive = useMatch({ path: resolvedPath.pathname, end: true });
     return (
-        <li className={path === href ? 'active' : ''}>
-            <a href={href} {...props}>
+        <li className={isActive ? 'active' : ''}>
+            <Link to={to} {...props}>
                 {children}
-            </a>
+            </Link>
         </li>
     )
 }
 
 function Navbar() {
     return <nav className="nav">
-        <a href="/" className="application-title">Stock Tracker</a>
+        <Link to="/" className="application-title">Stock Tracker</Link>
         <ul>
-            <CustomLink href="/stocks">Stocks</CustomLink>
-            <CustomLink href="/about">About</CustomLink>
+            <CustomLink to="/stocks">Stocks</CustomLink>
+            <CustomLink to="/about">About</CustomLink>
         </ul>
     </nav>
 }
