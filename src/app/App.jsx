@@ -1,40 +1,27 @@
-import { useEffect, useState } from 'react'
-import '../lib/css/App.css'
-import SearchTextbox from '../components/searchTextbox.jsx'
-
-const getStock = (symbol) => {
-  if (symbol) {
-    fetch(`/api/stocks?symbol=${symbol}`)
-      // fetch('http://localhost:3000/api/xqq')
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then((data) => {
-        console.log("Fetched data:", data);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error.message);
-      });
-  }
-};
+import Navbar from './components/Navbar.jsx';
+import About from './pages/About.jsx';
+import Home from './pages/Home.jsx';
+import Stocks from './pages/Stocks.jsx';
 
 function App() {
-  const [symbol, setSymbol] = useState();
-
-  function searchTerm(inputString) {
-    setSymbol(inputString)
-  };
-
-  useEffect(() => {
-    getStock(symbol);
-  }, [symbol]);
-
+  let component;
+  switch (window.location.pathname) {
+    case "/":
+      component = <Home />;
+      break;
+    case "/stocks":
+      component = <Stocks />;
+      break;
+    case "/about":
+      component = <About />;
+      break;
+  }
   return (
     <>
-      <SearchTextbox searchTerm={searchTerm} />
+      <Navbar />
+      <div className='page-container'>
+        {component}
+      </div>
     </>
   )
 }
