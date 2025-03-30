@@ -1,47 +1,53 @@
-import { useEffect, useRef } from 'react'
-import { useSearchParams  } from "react-router-dom";
+import { useEffect, useState } from 'react'
+import { useSearchParams } from "react-router-dom";
+import { LineChart, Legend, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
 
 function Stocks() {
     const [searchParams] = useSearchParams();
     const symbol = searchParams.get("symbol");
-    const abortControllerRef = useRef(null);
+    const [data, setData] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
     useEffect(() => {
         if (!symbol) return;
-
-        if (abortControllerRef.current) {
-            abortControllerRef.current.abort();
-        }
-
-        const controller = new AbortController();
-        abortControllerRef.current = controller;
-        const signal = controller.signal;
-
-        const debounceTimeout = setTimeout(async () => {
+        setLoading(true);
+        async function fetchStockData() {
             try {
-                const response = await fetch(`/api/stocks/symbol?ticker=${symbol}`, { signal });
-
-                if (!response.ok) {
-                    return<h1>Error</h1>
-                    // throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-
-                const data = await response.json();
-                console.log("Fetched data:", data);
-            } catch (error) {
-                if (error.name !== "AbortError") {
-                    console.error("Error fetching data:", error.message);
-                }
+                const res = await fetch(`/api/stocks/symbol?ticker=${symbol}`);
+                const result = await res.json();
+                setData(result);
+                setLoading(false);
+            } catch (err) {
+                console.error("Error fetching stock data:", err);
+                setError(err)
             }
-        }, 500);
-        return () => {
-            clearTimeout(debounceTimeout);
-            controller.abort();
+
         }
+        fetchStockData();
     }, [symbol]);
 
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error: {error}</p>;
+    console.log('data', data);
     return (
-        <h1>Stock</h1>
-    )
+        <>
+            <h1>Historical Stock Prices for {symbol}</h1>
+            <ResponsiveContainer width="100%" height={400}>
+                <LineChart data={data.data}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="date" />
+                    <YAxis />
+                    <Tooltip />
+                    <Legend />
+                    <Line type="monotone" dataKey="open" stroke="#8884d8" />
+                    <Line type="monotone" dataKey="close" stroke="#82ca9d" />
+                    <Line type="monotone" dataKey="high" stroke="#ff7300" />
+                    <Line type="monotone" dataKey="low" stroke="#ff0000" />
+                </LineChart>
+            </ResponsiveContainer>
+        </>
+    );
 }
 
 export default Stocks;

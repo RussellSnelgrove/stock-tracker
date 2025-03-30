@@ -29,3 +29,9 @@ To set up the project, follow these steps:
 ![Data Flow](./src/lib/images/data-flow.png)
 
 Arrows indicate access permissions. For example, features can access shared utilities, but features cannot access components in the app folder.
+
+
+# Notes for frontend
+- Create buttons to select 30,60,90,180 etc.... maybe custom text box?
+- Add linear regression line
+- Add meta Data stats to additonal table
