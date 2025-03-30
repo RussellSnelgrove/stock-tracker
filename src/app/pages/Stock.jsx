@@ -1,11 +1,14 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, Suspense } from 'react'
 import { useSearchParams } from "react-router-dom";
-import { LineChart, Legend, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
+
+import StockGraph from '../../components/StockGraph';
+import StockMetaData from '../../components/StockMetaData';
+import '../../lib/css/Stock.css'
 
 function Stocks() {
     const [searchParams] = useSearchParams();
     const symbol = searchParams.get("symbol");
-    const [data, setData] = useState(null);
+    const [stockInformation, setStockInformation] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -16,7 +19,7 @@ function Stocks() {
             try {
                 const res = await fetch(`/api/stocks/symbol?ticker=${symbol}`);
                 const result = await res.json();
-                setData(result);
+                setStockInformation(result);
                 setLoading(false);
             } catch (err) {
                 console.error("Error fetching stock data:", err);
@@ -28,24 +31,16 @@ function Stocks() {
     }, [symbol]);
 
     if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error: {error}</p>;
-    console.log('data', data);
+    if (error) return <p>Error: {error.message}</p>;
     return (
         <>
-            <h1>Historical Stock Prices for {symbol}</h1>
-            <ResponsiveContainer width="100%" height={400}>
-                <LineChart data={data.data}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="date" />
-                    <YAxis />
-                    <Tooltip />
-                    <Legend />
-                    <Line type="monotone" dataKey="open" stroke="#8884d8" />
-                    <Line type="monotone" dataKey="close" stroke="#82ca9d" />
-                    <Line type="monotone" dataKey="high" stroke="#ff7300" />
-                    <Line type="monotone" dataKey="low" stroke="#ff0000" />
-                </LineChart>
-            </ResponsiveContainer>
+            <h1>{stockInformation.meta.longName}</h1>
+            <div className='stock-data-display'>
+                <Suspense fallback={<p>Loading graph...</p>}>
+                    <StockGraph data={stockInformation.data} />
+                </Suspense>
+                <StockMetaData data={stockInformation.meta} />
+            </div>
         </>
     );
 }

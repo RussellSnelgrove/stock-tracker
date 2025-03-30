@@ -1,0 +1,28 @@
+.stock-data-display {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.stock-graph-data {
+  flex: 0 0 75%;
+  min-width: 0;
+  height: 100%;
+}
+
+.stock-data-display .meta-data-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.stock-data-display .stock-meta-data {
+  margin-left: 2.5rem;
+  text-align: left;
+}
+
+.stock-data-display .stock-meta-data li {
+  margin-bottom: 1rem;
+}
