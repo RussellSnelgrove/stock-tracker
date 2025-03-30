@@ -18,6 +18,7 @@ function Navbar() {
         <ul>
             <CustomLink to="/stocks">Stocks</CustomLink>
             <CustomLink to="/about">About</CustomLink>
+            <div className="login">login</div>
         </ul>
     </nav>
 }
