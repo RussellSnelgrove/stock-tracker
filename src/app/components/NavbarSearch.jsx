@@ -5,7 +5,7 @@ function SearchTextBox({ searchTerm }) {
     const [inputValue, setInputValue] = useState('');
 
     function searchInput() {
-        searchTerm(inputValue);
+        searchTerm(inputValue.trim().toUpperCase());
     };
 
     return (

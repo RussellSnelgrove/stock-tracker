@@ -4,6 +4,7 @@ import Navbar from './components/Navbar.jsx';
 import About from './pages/About.jsx';
 import Home from './pages/Home.jsx';
 import Stocks from './pages/Stocks.jsx';
+import Stock from './pages/Stock.jsx';
 
 function App() {
   return (
@@ -11,9 +12,10 @@ function App() {
       <Navbar />
       <div className='page-container'>
         <Routes>
-          <Route path='/' element={<Home/>}/>
-          <Route path='/stocks' element={<Stocks/>}/>
-          <Route path='/about' element={<About/>}/>
+        <Route path='/about' element={<About/>}/>
+        <Route path='/stocks' element={<Stocks/>}/>
+        <Route path='/stock' element={<Stock/>}/>
+        <Route path='/' element={<Home/>}/>
         </Routes>
       </div>
     </>
