@@ -7,7 +7,7 @@ function StockGraph({ data }) {
                 <LineChart data={data}>
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="date" />
-                    <YAxis />
+                    <YAxis domain={["auto", "auto"]} />
                     <Tooltip />
                     <Legend />
                     <Line type="monotone" dataKey="open" stroke="#8884d8" />

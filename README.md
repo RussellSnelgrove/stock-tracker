@@ -1,10 +1,10 @@
 # Stock Tracker
 
-The Stock Tracker project allows users to track the price of stocks by entering their ticker symbols. It provides a visual representation of stock price changes over time and offers cost estimations for future prices.
+The Stock Tracker project allows users to track the price of stocks by entering their symbols. It provides a visual representation of stock price changes over time and offers cost estimations for future prices.
 
 ## Features
 
-- Track stock prices by entering the stock ticker.
+- Track stock prices by entering the stock symbol.
 - View visual graphs showing stock price trends.
 - Estimate future stock prices based on historical data.
 - Automatically track the gap between the last tracking date and the current date.
